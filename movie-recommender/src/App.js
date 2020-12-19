@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React, {useState} from "react";
 import './App.css';
 
-function App() {
+const MoviesDB = {
+  romance : [{ name:"The Notebook", rating: 8, description: "Love story"}, { name:"The Notebook", rating: 8, description: "Love story"}],
+  comedy :  [{ name:"The Notebook", rating: 8, description: "Love story"}, { name:"The Notebook", rating: 8, description: "Love story"}]
+}
+export default function App() {
+  const [selected,setSelected] = useState("romance");
+
+
+
+  function clickHandler(item){
+    setSelected(item);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div >
+      <header>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Movie -Recommender
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <div>
+        <h2>Genres</h2>
+        <ul>
+          {
+          Object.keys(MoviesDB).map((item) => {
+            return (
+            <li onClick={() => clickHandler(item)} key={item}>{item}</li>
+            )
+          })
+          }
+        </ul>
+        <div>
+          {MoviesDB[selected].map((movie) => (
+            <div>
+              {movie.name} <small>{movie.rating}</small>
+              <p>
+                {movie.description}
+              </p>
+            </div>
+          )
+          )}
+        </div>
+      </div>
+      <footer>
+
+      </footer>
     </div>
   );
 }
 
-export default App;
